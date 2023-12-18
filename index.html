@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookie Example</title>
+  <script>
+    function setCookies() {
+      var firstName = document.getElementById('firstName').value;
+      var lastName = document.getElementById('lastName').value;
+
+      // Set cookies with the user's information
+      document.cookie = 'firstName=' + encodeURIComponent(firstName) + '; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/';
+      document.cookie = 'lastName=' + encodeURIComponent(lastName) + '; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/';
+
+      // Reload the page to see the effect
+      location.reload();
+    }
+
+    function getCookies() {
+      var cookies = document.cookie.split(';');
+      var userData = {};
+
+      // Extract the user's information from cookies
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim().split('=');
+        userData[cookie[0]] = decodeURIComponent(cookie[1]);
+      }
+
+      // Display the user's information
+      if (userData.firstName && userData.lastName) {
+        alert('Welcome back, ' + userData.firstName + ' ' + userData.lastName + '!');
+      }
+    }
+  </script>
+</head>
+<body onload="getCookies()">
+
+<h2>Enter your First and Last Name</h2>
+
+<form>
+  <label for="firstName">First Name:</label>
+  <input type="text" id="firstName" name="firstName" required>
+
+  <label for="lastName">Last Name:</label>
+  <input type="text" id="lastName" name="lastName" required>
+
+  <button type="button" onclick="setCookies()">Set Cookies</button>
+</form>
+
+</body>
+</html>
